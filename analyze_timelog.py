@@ -1,6 +1,7 @@
 #! /usr/bin/python
 import itertools
 import datetime
+import sys
 
 zero = datetime.timedelta()
 buckets = { 
@@ -19,7 +20,15 @@ buckets = {
             "JIRA" : zero,
             "Tomtom" : zero,
             "Moneycontrol" : zero
-        }
+        },
+        "mutt" :
+        {
+            "" : zero,
+        },
+        "[Idle]" :
+        {
+            "" : zero,
+            }
         }
 
 def pairwise(iterable):
@@ -40,6 +49,9 @@ def analyze (pair):
     time1, activity = parse(l1)
     time2, activity2 = parse(l2)
 
+    if not (time1 >= start_date and time1 <= end_date):
+        return
+
     #print (activity + "\t : " + str(time2 - time1))
     for key in buckets:
         try:
@@ -50,6 +62,11 @@ def analyze (pair):
                 if subkey in activity:
                     buckets[key][subkey] = buckets[key][subkey] + (time2 - time1)
 
+end_date = datetime.datetime.now()
+if len(sys.argv) == 2:
+    start_date = end_date - datetime.timedelta(days=int(sys.argv[1]))
+else:
+    start_date = datetime.datetime.min
 
 with open("/scratch/timelog") as f:
     for pair in pairwise(f):
