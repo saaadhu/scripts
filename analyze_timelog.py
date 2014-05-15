@@ -3,7 +3,24 @@ import itertools
 import datetime
 
 zero = datetime.timedelta()
-buckets = { "VIM" : { "" : zero, ".c" : zero, ".py" : zero, "gcc" : zero, "binutils" : zero, "avr-libc" : zero } ,"Vimperator" : { "JIRA" : zero, "" : zero } }
+buckets = { 
+        "VIM" : 
+        { 
+            "" : zero, 
+            ".c" : zero, 
+            ".py" : zero, 
+            "gcc" : zero, 
+            "binutils" : zero, 
+            "avr-libc" : zero 
+        },
+        "Vimperator" : 
+        { 
+            "" : zero, 
+            "JIRA" : zero,
+            "Tomtom" : zero,
+            "Moneycontrol" : zero
+        }
+        }
 
 def pairwise(iterable):
     a, b = itertools.tee(iterable)
